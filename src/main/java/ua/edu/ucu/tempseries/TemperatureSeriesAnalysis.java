@@ -67,13 +67,13 @@ public class TemperatureSeriesAnalysis {
     public double findTempClosestToValue(double tempValue) {
         checkIfEmpty();
         int closestIdx = 0;
-        double minimumAbs = abs(temperatureSeries[0] - tempValue);
+        double minAbs = abs(temperatureSeries[0] - tempValue);
         for (int idx = 1; idx < length; idx++) {
             double currentDifference = abs(temperatureSeries[idx] - tempValue);
-            if (currentDifference < minimumAbs || (currentDifference == minimumAbs
+            if (currentDifference < minAbs || (currentDifference == minAbs
                     && temperatureSeries[idx] > 0)) {
                 closestIdx = idx;
-                minimumAbs = currentDifference;
+                minAbs = currentDifference;
             }
         }
         return temperatureSeries[closestIdx];
