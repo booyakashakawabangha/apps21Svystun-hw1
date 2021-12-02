@@ -19,7 +19,9 @@ public class TemperatureSeriesAnalysis {
     public double average() {
         checkIfEmpty();
         double total = 0;
-        for (double temperature: temperatureSeries) {total += temperature;}
+        for (double temperature: temperatureSeries) {
+            total += temperature;
+        }
         return total / length;
     }
 
@@ -108,13 +110,12 @@ public class TemperatureSeriesAnalysis {
         for (double temperature : temps) {
             if (temperature < LowestTemp) throw new InputMismatchException();
         }
-        if (length + temps.length >= temperatureSeries.length) {
-            double[] longerSeries = new double[2 * length];
-            for (int idx = 0; idx < length; idx++){
-                longerSeries[idx] = temperatureSeries[idx];
-            }
-            temperatureSeries = longerSeries;
+        if (length + temps.length > temperatureSeries.length) {
+            double[] newSeries = new double[2 * (temperatureSeries.length + temps.length)];
+            for (int idx = 0; idx < temperatureSeries.length; idx++){newSeries[idx] = temperatureSeries[idx];}
+            temperatureSeries = newSeries.clone();
         }
+
         for (int idx = 0; idx < temps.length; idx++) {
             temperatureSeries[idx + length] = temps[idx];
         }
