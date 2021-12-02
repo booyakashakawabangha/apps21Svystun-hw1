@@ -6,7 +6,7 @@ import static java.lang.Math.*;
 
 public class TemperatureSeriesAnalysis {
     int length = 0;
-    private double[] temperatureSeries;
+    private double[] temperatureSeries = new double[2];
 
     final int lowestTemp = -273;
 
