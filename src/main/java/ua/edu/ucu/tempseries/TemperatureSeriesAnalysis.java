@@ -2,13 +2,15 @@ package ua.edu.ucu.tempseries;
 
 import java.util.InputMismatchException;
 
-import static java.lang.Math.*;
+import static java.lang.Math.pow;
+import static java.lang.Math.abs;
+import static java.lang.Math.sqrt;
 
 public class TemperatureSeriesAnalysis {
-    int length = 0;
+    private final int lowestTemp = -273;
+    private int length = 0;
     private double[] temperatureSeries = new double[2];
 
-    final int lowestTemp = -273;
 
     public TemperatureSeriesAnalysis() {
     }
@@ -64,16 +66,17 @@ public class TemperatureSeriesAnalysis {
 
     public double findTempClosestToValue(double tempValue) {
         checkIfEmpty();
-        int closest_idx = 0;
-        double minimum_abs = abs(temperatureSeries[0] - tempValue);
+        int closestIdx = 0;
+        double minimumAbs = abs(temperatureSeries[0] - tempValue);
         for (int idx = 1; idx < length; idx++) {
             double currentDifference = abs(temperatureSeries[idx] - tempValue);
-            if (currentDifference < minimum_abs || (currentDifference == minimum_abs && temperatureSeries[idx] > 0)) {
-                closest_idx = idx;
-                minimum_abs = currentDifference;
+            if (currentDifference < minimumAbs || (currentDifference == minimumAbs
+                    && temperatureSeries[idx] > 0)) {
+                closestIdx = idx;
+                minimumAbs = currentDifference;
             }
         }
-        return temperatureSeries[closest_idx];
+        return temperatureSeries[closestIdx];
     }
 
     public double[] findTempsLessThen(double tempValue) {
@@ -124,7 +127,8 @@ public class TemperatureSeriesAnalysis {
             }
         }
         if (length + temps.length > temperatureSeries.length) {
-            double[] newSeries = new double[2 * (temperatureSeries.length + temps.length)];
+            double[] newSeries = new double[2 * (temperatureSeries.length
+                    + temps.length)];
             for (int idx = 0; idx < temperatureSeries.length; idx++) {
                 newSeries[idx] = temperatureSeries[idx];
             }
